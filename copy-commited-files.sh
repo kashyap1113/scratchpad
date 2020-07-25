@@ -64,7 +64,12 @@ do
         classDirectory=$(dirname "$classFilePath")
         echo "<<<" $classDirectory
 
-        find "$classDirectory" -maxdepth 1 -regextype posix-extended -regex ".*"$classFileName"$"  -exec cp -t "$destinationDirectory" {} +
+        classWebAppDirectory="$destinationDirectory/WEB-INF/classes/"$(dirname ${BASH_REMATCH[2]})
+        if [ ! -d "$classWebAppDirectory" ]; then
+            mkdir -p "$classWebAppDirectory"
+        fi
+
+        find "$classDirectory" -maxdepth 1 -regextype posix-extended -regex ".*"$classFileName"$"  -exec cp -t "$classWebAppDirectory" {} +
 
     else
         filePath="$repositoryPath/$line"
