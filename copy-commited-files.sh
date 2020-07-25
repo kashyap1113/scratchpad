@@ -45,7 +45,7 @@ mkdir "$destinationDirectory/$commitId"
 destinationDirectory=$destinationDirectory"/"$commitId
 
 # Print commit message
-echo "--------------------------- Commit Message -------------------------------"
+echo "--------------------- Commit Message [$commitId] -------------------------"
 git --git-dir "$repositoryPath/.git" log --format=%B -n 1 $commitId
 echo "--------------------------------------------------------------------------"
 
