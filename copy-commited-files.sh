@@ -27,7 +27,7 @@ echo "Repository location : " $repositoryPath
 if [[ -z "$destinationDirectory" ]]; then
     destinationDirectory=$(pwd)
 fi
-destinationDirectory=$destinationDirectory"/commit-files/"
+destinationDirectory=$destinationDirectory"/commit-files"
 echo "Destination directory : " $destinationDirectory
 
 # Check if destination directory exist and create one if not
@@ -90,4 +90,9 @@ echo "Total files in commit : " $var
 echo "-------------------------------------------------------------------------"
 }
 
-find "$destinationDirectory/ROOT" -type f|sed "s#$destinationDirectory/##">"$destinationDirectory.txt"
+find "$destinationDirectory/ROOT" -type f|sed "s#$destinationDirectory/##">$(dirname "$destinationDirectory")"/$commitId/$commitId.txt"
+
+cd "$destinationDirectory"
+zip -r "ROOT" "ROOT"
+
+exit 0
