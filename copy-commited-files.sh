@@ -51,7 +51,7 @@ touch "$destinationDirectory/$commitId"
 git --git-dir "$repositoryPath/.git" diff-tree --no-commit-id --name-only -r $commitId | {
 while IFS= read -r line
 do
-    #echo $line    
+    echo $line    
     if [[ $line == *.java ]]; then        
         regex="(.*)src/main/java/(.*).java"
         [[ "$line" =~ $regex ]]        
@@ -64,7 +64,7 @@ do
         classDirectory=$(dirname "$classFilePath")
         echo "<<<" $classDirectory
 
-        classWebAppDirectory="$destinationDirectory/WEB-INF/classes/"$(dirname ${BASH_REMATCH[2]})
+        classWebAppDirectory="$destinationDirectory/WEB-INF/classes/$(dirname ${BASH_REMATCH[2]})"
         if [ ! -d "$classWebAppDirectory" ]; then
             mkdir -p "$classWebAppDirectory"
         fi
@@ -72,8 +72,16 @@ do
         find "$classDirectory" -maxdepth 1 -regextype posix-extended -regex ".*"$classFileName"$"  -exec cp -t "$classWebAppDirectory" {} +
 
     else
+        regex="(.*)src/main/webapp/(.*)"
+        [[ "$line" =~ $regex ]]        
+        echo "===second group===" "${BASH_REMATCH[1]}"
+        echo "***third group***" "${BASH_REMATCH[2]}"    
+        fileWebAppDirectory="$destinationDirectory/$(dirname ${BASH_REMATCH[2]})"
+        if [ ! -d "$fileWebAppDirectory" ]; then
+            mkdir -p "$fileWebAppDirectory"
+        fi
         filePath="$repositoryPath/$line"
-        cp "$filePath" "$destinationDirectory"
+        cp "$filePath" "$fileWebAppDirectory"
     fi    
 done
 
