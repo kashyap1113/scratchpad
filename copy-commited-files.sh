@@ -1,5 +1,5 @@
 #!/bin/bash
-# This script will copy files from "WORKING TREE" in given commit
+# This script will copy files in given commit from "WORKING TREE" 
 # class files will be copied instead of java file
 
 # If commit id is not given then exit
@@ -44,12 +44,17 @@ fi
 mkdir "$destinationDirectory/$commitId"
 destinationDirectory=$destinationDirectory"/"$commitId
 
+# Print commit message
+echo "--------------------------- Commit Message -------------------------------"
+git --git-dir "$repositoryPath/.git" log --format=%B -n 1 $commitId
+echo "--------------------------------------------------------------------------"
 
 # Get files in given commit
 git --git-dir "$repositoryPath/.git" diff-tree --no-commit-id --name-only -r $commitId | {
 while IFS= read -r line
 do
-    echo $line    
+    echo $line
+    ((var++))
     if [[ $line == *.java ]]; then        
         regex="(.*)src/main/java/(.*).java"
         [[ "$line" =~ $regex ]]        
@@ -80,6 +85,9 @@ do
         cp "$filePath" "$fileWebAppDirectory"
     fi    
 done  
+echo "-------------------------------------------------------------------------"
+echo "Total files in commit : " $var
+echo "-------------------------------------------------------------------------"
 }
 
 find "$destinationDirectory/ROOT" -type f|sed "s#$destinationDirectory/##">"$destinationDirectory.txt"
