@@ -55,16 +55,14 @@ do
     if [[ $line == *.java ]]; then        
         regex="(.*)src/main/java/(.*).java"
         [[ "$line" =~ $regex ]]        
-        echo "===second group===" "${BASH_REMATCH[1]}"
-        echo "***third group***" "${BASH_REMATCH[2]}"        
+        #echo "===second group===" "${BASH_REMATCH[1]}"
+        #echo "***third group***" "${BASH_REMATCH[2]}"        
         classFilePath="$repositoryPath/${BASH_REMATCH[1]}target/classes/${BASH_REMATCH[2]}(\\$.*)?.class"
-        echo "### " $classFilePath
-        classFileName=$(basename "$classFilePath")
-        echo ">>>" $classFileName
-        classDirectory=$(dirname "$classFilePath")
-        echo "<<<" $classDirectory
+        #echo "### " $classFilePath
+        classFileName=$(basename "$classFilePath")        
+        classDirectory=$(dirname "$classFilePath")        
 
-        classWebAppDirectory="$destinationDirectory/WEB-INF/classes/$(dirname ${BASH_REMATCH[2]})"
+        classWebAppDirectory="$destinationDirectory/ROOT/WEB-INF/classes/$(dirname ${BASH_REMATCH[2]})"
         if [ ! -d "$classWebAppDirectory" ]; then
             mkdir -p "$classWebAppDirectory"
         fi
@@ -74,16 +72,14 @@ do
     else
         regex="(.*)src/main/webapp/(.*)"
         [[ "$line" =~ $regex ]]        
-        echo "===second group===" "${BASH_REMATCH[1]}"
-        echo "***third group***" "${BASH_REMATCH[2]}"    
-        fileWebAppDirectory="$destinationDirectory/$(dirname ${BASH_REMATCH[2]})"
+        #echo "===second group===" "${BASH_REMATCH[1]}"
+        #echo "***third group***" "${BASH_REMATCH[2]}"    
+        fileWebAppDirectory="$destinationDirectory/ROOT/$(dirname ${BASH_REMATCH[2]})"
         if [ ! -d "$fileWebAppDirectory" ]; then
             mkdir -p "$fileWebAppDirectory"
         fi
         filePath="$repositoryPath/$line"
         cp "$filePath" "$fileWebAppDirectory"
     fi    
-done
-
-  
+done  
 }
