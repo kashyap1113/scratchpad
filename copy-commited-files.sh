@@ -1,5 +1,5 @@
 #!/bin/bash
-# This script will copy files in given commit
+# This script will copy files from "WORKING TREE" in given commit
 # class files will be copied instead of java file
 
 # If commit id is not given then exit
@@ -44,8 +44,6 @@ fi
 mkdir "$destinationDirectory/$commitId"
 destinationDirectory=$destinationDirectory"/"$commitId
 
-# Create file to store file list
-touch "$destinationDirectory/$commitId"
 
 # Get files in given commit
 git --git-dir "$repositoryPath/.git" diff-tree --no-commit-id --name-only -r $commitId | {
@@ -83,3 +81,5 @@ do
     fi    
 done  
 }
+
+find "$destinationDirectory/ROOT" -type f|sed "s#$destinationDirectory/##">"$destinationDirectory.txt"
