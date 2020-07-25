@@ -12,10 +12,10 @@ fi
 commitId=$1
 
 # git repo path
-repositoryPath=""
+repositoryPath="/home/intel/git/old"
 
 # Destination directory for putting copied files
-destinationDirectory=""
+destinationDirectory="/home/intel/git/old"
 
 # Use current directory as git repo path if not set
 if [[ -z "$repositoryPath" ]]; then
@@ -48,7 +48,7 @@ destinationDirectory=$destinationDirectory"/"$commitId
 touch "$destinationDirectory/$commitId"
 
 # Get files in given commit
-git diff-tree --no-commit-id --name-only -r $commitId | {
+git --git-dir "$repositoryPath/.git" diff-tree --no-commit-id --name-only -r $commitId | {
 while IFS= read -r line
 do
     #echo $line    
