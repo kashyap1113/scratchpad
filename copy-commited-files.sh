@@ -1,6 +1,6 @@
 #!/bin/bash
 # This script will copy files in given commit from "WORKING TREE" 
-# class files will be copied instead of java file
+# class files will be copied instead of java file.
 
 # If commit id is not given then exit
 if [[ $# -eq 0 ]] ; then
