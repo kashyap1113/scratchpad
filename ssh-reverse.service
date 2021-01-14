@@ -1,0 +1,12 @@
+[Unit]
+Description=Reverse SSH connection
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/ssh -NT -o ServerAliveInterval=10 -o ExitOnForwardFailure=yes -o StrictHostKeyChecking=no -o IdentitiesOnly=yes -o ExitOnForwardFailure=yes -i /home/sandy/.ssh/id_rsa -R 22222:localhost:22 limiteduser@intelcorei5.mywire.org -p 12022
+Restart=always
+RestartSec=5s
+
+[Install]
+WantedBy=default.target
