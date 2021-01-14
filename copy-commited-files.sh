@@ -1,6 +1,6 @@
 #!/bin/bash
 # This script will copy files in given commit from "WORKING TREE" 
-# class files will be copied instead of java file.
+# class files will be copied instead of java file
 
 # If commit id is not given then exit
 if [[ $# -eq 0 ]] ; then
@@ -12,10 +12,10 @@ fi
 commitId=$1
 
 # git repo path
-repositoryPath="/home/intel/git/old"
+repositoryPath=""
 
 # Destination directory for putting copied files
-destinationDirectory="/home/intel/git/old"
+destinationDirectory=""
 
 # Use current directory as git repo path if not set
 if [[ -z "$repositoryPath" ]]; then
