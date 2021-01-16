@@ -16,7 +16,7 @@ xfce4-screenshooter --region --save "$DIRECTORY" &>/dev/null
 wait
 
 #echo "Reading QR code image"
-zbarimg "$DIRECTORY"/*
+zenity --info --no-wrap --text "$(zbarimg "$DIRECTORY"/* 2>&1)"
 
 #echo "Removing old files"
 rm -f "$DIRECTORY"/*
