@@ -57,4 +57,5 @@ function fillTimeZone(elementSelector) {
        }); 
        selectEl.append(optionEl);
     }
+    $(elementSelector).chosen();
 }
