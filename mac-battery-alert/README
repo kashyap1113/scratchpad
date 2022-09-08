@@ -1,0 +1,6 @@
+1. Put the plist file in /Library/LaunchDaemons
+2. Change file permission to set root as owner
+	sudo chown root com.kashyap1113.BatteryAlert.plist
+3. Start service using command 
+	sudo launchctl load -w /Library/LaunchDaemons/com.kashyap1113.BatteryAlert.plist
+
